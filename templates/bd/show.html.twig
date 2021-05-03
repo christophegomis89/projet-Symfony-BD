@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les bandes dessinées de l'auteur{% endblock %}
+
+{% block body %}
+    <div class="container-lg container-fluid">
+        <h1 class="myFont text-center text-danger my-3 display-3">{{ auteur.auteur }}</h1>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            {% for produit in produits %}
+                <div class="card mb-3 sizeCard"  >
+                    <div class="row no-gutters">
+                        <div class="col-md-4 p-2">
+                            {% if produit.refBd in couvertures %}
+                                <img src="{{ asset('images/') }}{{ produit.refBd }}{{'.jpg'}}" 
+                                    alt="couverture {{ produit.refBd }}" class="card-img thumbnail">
+                            {% else %}
+                                <img src="{{ asset('images/defaut.jpg') }}" alt="Aucune couverture" class="thumbnail card-img">
+                            {% endif %}   
+                        </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                        <h5 class="card-title">{{ produit.titre }}</h5>
+                        <p class="card-text">{{ produit.heros }} - {{ produit.auteur}}</p>
+                        <p class="card-text">{{ produit.resume }}</p>
+                        <p class="card-text">{{ produit.refBd}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {# version prof en commentaire #}
+        {# {% for produit in produits %}
+            <article>
+                <h2>{{ produit.titre }}</h2>
+                <div>
+                    {{ produit.heros }} - {{ produit.auteur}}
+                </div>
+                <div class="content">
+                    {% if produit.refBd in couvertures %}
+                        <img src="{{ asset('images/') }}{{ produit.refBd }}{{'.jpg'}}" alt="couverture {{ produit.refBd }}" class="thumbnail">
+                    {% else %}
+                        <img src="{{ asset('images/defaut.jpg') }}" alt="Aucune couverture" class="thumbnail">
+                    {% endif %}   
+                    <p>{{ produit.resume }}</p>
+                    <p>{{ produit.refBd}}</p>
+                    <hr>
+                </div>
+            </article>
+        {% endfor %} #}
+    </div>
+{% endblock %}
