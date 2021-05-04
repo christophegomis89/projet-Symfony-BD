@@ -22,7 +22,7 @@ class SecurityController extends AbstractController
         $form = $this->createForm(RegistrationType::class, $user);
 
         $form->handleRequest($request);
- 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
@@ -32,9 +32,9 @@ class SecurityController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            $this->addFlash('success','Votre compte a été créé !');
+            $this->addFlash('success', 'Votre compte a été créé vous pouvez à présent vous connectez !');
 
-            return $this->redirectToRoute('security_registration');
+            return $this->redirectToRoute('security_login');
         }
         return $this->render('security/registration.html.twig', [
             'form' => $form->createView(),
@@ -42,15 +42,17 @@ class SecurityController extends AbstractController
     }
 
     /**
-    * @Route("/connexion", name="security_login")
-    */
+     * @Route("/connexion", name="security_login")
+     */
     public function login()
     {
         return $this->render('security/login.html.twig');
     }
 
     /**
-    * @Route("/deconnexion", name="security_logout")
-    */
-    public function logout() {}
+     * @Route("/deconnexion", name="security_logout")
+     */
+    public function logout()
+    {
+    }
 }
